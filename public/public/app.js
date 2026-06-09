@@ -1,4 +1,10 @@
-const socket = io();
+// YENİ PREMIUM BAĞLANTI AYARI (VPN və şəbəkə bloklarını qıran sistem)
+const socket = io({
+    transports: ['polling', 'websocket'], // Əgər websocket bloklansa, dərhal HTTP Polling-ə keç
+    reconnectionAttempts: 15,             // Bağlantı qopsa 15 dəfə yenidən yoxla
+    reconnectionDelay: 1500               // Hər 1.5 saniyədən bir serveri döyəclə
+});
+
 const canvas = document.getElementById('board');
 const ctx = canvas.getContext('2d', { alpha: false });
 
@@ -326,3 +332,4 @@ window.addEventListener('mouseup', endAction);
 canvas.addEventListener('touchstart', startAction, { passive: false });
 window.addEventListener('touchmove', doAction, { passive: false });
 canvas.addEventListener('touchend', endAction);
+          
